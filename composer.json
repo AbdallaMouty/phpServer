@@ -1,0 +1,21 @@
+{
+  "name": "abdalla/php-server",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Abdalla\\PHPSERVER\\": "src/"
+    }
+  },
+  "scripts": {
+    "serve": "php -S localhost:8080"
+  },
+  "authors": [
+    {
+      "name": "AbdallaMouty"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.6",
+    "firebase/php-jwt": "^6.10"
+  }
+}

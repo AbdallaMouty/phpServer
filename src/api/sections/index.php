@@ -3,33 +3,32 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
+require __DIR__ . '/functions.php';
+
 switch ($action) {
     case 'get':
-        $stmt   = $db->prepare('SELECT * FROM Sections');
-        $result = $stmt->execute();
-        $rows   = $result->fetchArray(SQLITE3_ASSOC);
-        $json   = json_encode($rows, JSON_UNESCAPED_UNICODE);
-        echo $json;
+        $get($resId);
 
         break;
 
-        case 'edit':
-    
-                $name  = isset($_POST['name']) ? $_POST['name'] : '';
-                $aname = isset($_POST['aname']) ? $_POST['aname'] : '';
-                $id    = isset($_POST['id']) ? $_POST['id'] : '';
-    
-                $stmt = $db->prepare('UPDATE Sections SET name = :name, aname = :aname WHERE id = :id');
-                $stmt->bindValue(':name', $name, SQLITE3_TEXT);
-                $stmt->bindValue(':aname', $aname, SQLITE3_TEXT);
-                $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
-                $stmt->execute();
-    
-                if ($result) {
-                    echo 'success';
-                } else {
-                    http_response_code(500);
-                    echo 'fail';
-                }
-            break;
-    }
+    case 'edit':
+        $name  = isset($_POST['name']) ? $_POST['name'] : '';
+        $aname = isset($_POST['aname']) ? $_POST['aname'] : '';
+        $id    = isset($_POST['id']) ? $_POST['id'] : '';
+
+        $sql = 'UPDATE Sections SET name = :$0, aname = :$1 WHERE id = :$2';
+        $query($sql, $name, $aname, $id);
+        break;
+
+    case 'add':
+        $name  = isset($_POST['name']) ? $_POST['name'] : '';
+        $aname = isset($_POST['aname']) ? $_POST['aname'] : '';
+
+        $sql = 'INSERT INTO Sections SET (name,aname) VALUES ($0,$1)';
+        $query($sql, $name, $aname);
+        break;
+    case 'delete':
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
+        $delete($Id);
+        break;
+}

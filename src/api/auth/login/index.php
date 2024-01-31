@@ -7,6 +7,24 @@ header('Access-Control-Allow-Methods: *');
 header('Access-Control-Max-Age: 3600');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
+require __DIR__. '/../vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+use Dotenv\Dotenv;
+
+$sec_key = $_ENV["JWT_SECRET"];
+
+$payload = array(
+    "iss" => "localhost",
+    "aud" => "localhost",
+    "username" => "admin",
+    "password" => "admin"
+);
+
+$encode = JWT::encode($payload, $sec_key, 'HS256');
+
+
 // get posted data
 $data = json_decode(file_get_contents('php://input'));
 
@@ -15,7 +33,7 @@ $username = $data->username;
 $password = base64_encode($data->password);
 
 // prepare the SQL statement
-$stmt = $db->prepare('SELECT * FROM users WHERE name = :username AND password = :password');
+$stmt = $db->prepare('SELECT * FROM users WHERE username = :username AND password = :password');
 
 // bind the username and password parameters
 $stmt->bindParam(':username', $username);
