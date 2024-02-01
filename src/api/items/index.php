@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $data = $db->query('SELECT * FROM Items');
+    $data = $db->query('SELECT * FROM Items WHERE resId=$resId');
     $rows = [];
     while ($row = $data->fetchArray(SQLITE3_ASSOC)) {
         $rows[] = $row;

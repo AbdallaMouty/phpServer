@@ -25,5 +25,5 @@ $query = function ($sql, ...$params) use ($db) {
     }
 };
 
-$get    = fn()           => $_SERVER['REQUEST_METHOD'] == 'GET' ? $query('SELECT * FROM Sections') : http_response_code(405) . $abort(405);
+$get    = fn($resId)           => $_SERVER['REQUEST_METHOD'] == 'GET' ? $query('SELECT * FROM Sections WHERE resId = :$0',$resId) : http_response_code(405) . $abort(405);
 $delete = fn(...$params) => $_SERVER['REQUEST_METHOD'] == 'POST' ? $query('DELETE FROM Sections WHERE Id = :$0', ...$params) : http_response_code(405) . $abort(405);

@@ -8,8 +8,7 @@ $groups = [
     '/' => [
         ''      => $route('get', 'public/index.php'),
         'count' => $route('get', 'src/api/count/index.php', 0, 1),
-        'login' => $route('get', 'src/api/auth/login/index.php', 0, 1),
-        'auth' => $route('get','src/jwt.php')
+        'login' => $route('get', 'src/api/auth/login/index.php', 0, 1)
     ],
     '/items/' => [
         'all'    => $route('get', 'src/api/items/index.php'),

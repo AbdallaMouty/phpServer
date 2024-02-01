@@ -40,6 +40,6 @@ $imageUpload = function () {
 
     return $target_file;
 };
-$all    = fn()           => $requestMethod == 'GET' ? $query('SELECT * FROM Categories') : http_response_code(405) . $abort(405);
+$all    = fn()           => $requestMethod == 'GET' ? $query('SELECT * FROM Categories WHERE resId = :$0',$resId) : http_response_code(405) . $abort(405);
 $get    = fn(...$params) => $requestMethod == 'GET' ? $query('SELECT * FROM Categories WHERE sectionId = :$0', ...$params) : http_response_code(405) . $abort(405);
 $delete = fn(...$params) => $requestMethod == 'POST' ? $query('DELETE FROM Categories WHERE Id = :$0', ...$params) : http_response_code(405) . $abort(405);

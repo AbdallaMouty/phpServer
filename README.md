@@ -4,4 +4,4 @@
 
 $composer install
 
-$composer serve _OR_ php -S localhost:<PORT_NAME>
+$composer serve _OR_ php -S <HOST_NAME>:<PORT_NAME>
